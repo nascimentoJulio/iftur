@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>IFTur - Explore o mundo</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            box-sizing: border-box;
+        }
+        h3,p {
+            margin: 0;
+        }
+
+        .overlay{
+            height: 100%;
+            background: #00000085;
+            width: 100%;
+            position: absolute;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        #navbar {
+            position: fixed;
+            top: -80px;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            transition: top 0.3s ease;
+            z-index: 1000;
+        }
+
+        .navbar-container{
+            color: white;
+            padding: 0 40px;
+            display: flex;
+            height: 100%;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        #navbar.show {
+            top: 0;
+        }
+
+        #navbar h2 {
+            margin: 0;
+        }
+
+        #navbar button {
+            background: #158229;
+            border: none;
+            padding: 8px 16px;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        header {
+            background: url('https://images.pexels.com/photos/10080487/pexels-photo-10080487.jpeg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            color: white;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        header h1{
+            font-size: 3rem;
+        }
+        header p {
+            font-size: 1.5rem;
+            color: #ffffffa1;
+        }
+        .header-container-item{
+            margin: 0;
+            z-index: 1;
+        }
+
+        .btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #158229;
+            color: white;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            text-decoration: none;
+       }
+
+        .container {
+            padding: 40px;
+        }
+
+        .header-container {
+            font-family: "Segoe UI", Arial, sans-serif;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            height: 100%;
+            width: 100%;
+        }
+
+        .cards {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            width: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .empty-destinations {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .empty-destinations > h4 {
+            margin: 0;
+            font-weight: bold;
+            color: rgba(64,64,64,0.6);
+        }
+
+        footer {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="navbar">
+    <div class="navbar-container">
+        <h2>IFTur</h2>
+        <button >MEUS DESTINOS</button>
+    </div>
+</div>
+
+<header>
+    <div class="header-container">
+
+    <div class="overlay"></div>
+    <h1 class="header-container-item" th:text="${titulo}">Explore o mundo</h1>
+    <p class="header-container-item" th:text="${subtitulo}">Descubra destinos incríveis</p>
+    <a href="#destinations" class="btn header-container-item">
+        VER DESTINOS
+    </a>
+    </div>
+</header>
+
+<section id="destinations" class="container">
+    <h2>Destinos populares</h2>
+
+    <div class="cards">
+        <div class="card" th:each="destination : ${destinations}">
+            <img th:src="${destination.image}" alt="Destino">
+            <div>
+                <h3 th:text="${destination.name}">Nome</h3>
+                <p th:text="${destination.description}">Descrição</p>
+            </div>
+        </div>
+    </div>
+
+    <h2>Meus destinos</h2>
+    <div class="empty-destinations">
+        <h4>Você não tem nenhum destino ainda...</h4>
+        <button class="btn">CADASTRAR</button>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 IFTur - Todos os direitos reservados</p>
+</footer>
+
+<script>
+    let lastScroll = 0;
+    const navbar = document.getElementById("navbar");
+
+    window.addEventListener("scroll", () => {
+        const currentScroll = window.pageYOffset;
+
+        if (currentScroll > 100) {
+            navbar.classList.add("show");
+        } else {
+            navbar.classList.remove("show");
+        }
+
+        lastScroll = currentScroll;
+    });
+</script>
+
+</body>
+</html>
