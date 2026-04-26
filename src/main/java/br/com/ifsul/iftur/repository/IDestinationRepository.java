@@ -2,8 +2,17 @@ package br.com.ifsul.iftur.repository;
 
 import br.com.ifsul.iftur.domains.Destination;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public interface IDestinationRepository {
-    public List<Destination> getAll();
+
+    ArrayList<Destination> getAll();
+    
+
+    Destination findById(Long id);
+
+    void save(Destination destination);
+
+    void delete(Long id);
+
 }

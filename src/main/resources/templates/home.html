@@ -167,12 +167,18 @@
 
 <body>
 
-<div id="navbar">
-    <div class="navbar-container">
-        <h2>IFTur</h2>
-        <button >MEUS DESTINOS</button>
-    </div>
-</div>
+
+	<div class="navbar-container">
+	    <h2>IFTur</h2>
+
+	    <button onclick       MEUS DESTINOS
+	    </button>
+
+	    /destinations/new
+	        CADASTRAR
+	    </button>
+	</div>
+
 
 <header>
     <div class="header-container">
@@ -189,20 +195,30 @@
 <section id="destinations" class="container">
     <h2>Destinos populares</h2>
 
-    <div class="cards">
-        <div class="card" th:each="destination : ${destinations}">
-            <img th:src="${destination.image}" alt="Destino">
-            <div>
-                <h3 th:text="${destination.name}">Nome</h3>
-                <p th:text="${destination.description}">Descrição</p>
-            </div>
-        </div>
-    </div>
+
+	<div class="cards">
+	    <a thstinations/{id}(id=${destination.id})}
+
+	        <div class="card">
+	            ${destination.image}
+
+	            <div style="padding: 10px;">
+	                <h3 th:text="${destination.name}">Nome</h3>
+	                <p th:text="${destination.description}">Descrição</p>
+	            </div>
+	        </div>
+
+	    </a>
+	</div>
+
 
     <h2>Meus destinos</h2>
     <div class="empty-destinations">
         <h4>Você não tem nenhum destino ainda...</h4>
-        <button class="btn">CADASTRAR</button>
+		@{/destinations/new}
+		    CADASTRAR
+		</a>
+
     </div>
 </section>
 
