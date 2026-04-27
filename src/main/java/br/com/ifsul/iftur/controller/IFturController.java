@@ -65,14 +65,6 @@ public class IFturController {
     }
 
 
-	@GetMapping("/")
-	public String redirectHome() {
-	    return "redirect:/destinations";
-	}
-
-
-
-
 
     //@GetMapping
     //public String home(Model model) {
