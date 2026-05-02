@@ -196,13 +196,16 @@
                 <h3 th:text="${destination.name}">Nome</h3>
                 <p th:text="${destination.description}">Descrição</p>
             </div>
+            <div>
+                <a class="btn" th:href="@{/detalhes/{id}(id=${destination.id})}">Ver detalhes</a>
+            </div>
         </div>
     </div>
 
     <h2>Meus destinos</h2>
-    <div class="empty-destinations">
+    <div class="empty-destinations" th:if="${#lists.isEmpty(destinations)}">
         <h4>Você não tem nenhum destino ainda...</h4>
-        <button class="btn">CADASTRAR</button>
+        <a class="btn" href="/cadastro">CADASTRAR</a>
     </div>
 </section>
 
