@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <title>IFTur - Explore o mundo</title>
@@ -10,11 +11,13 @@
             font-family: "Segoe UI", Arial, sans-serif;
             box-sizing: border-box;
         }
-        h3,p {
+
+        h3,
+        p {
             margin: 0;
         }
 
-        .overlay{
+        .overlay {
             height: 100%;
             background: #00000085;
             width: 100%;
@@ -46,7 +49,7 @@
             z-index: 1000;
         }
 
-        .navbar-container{
+        .navbar-container {
             color: white;
             padding: 0 40px;
             display: flex;
@@ -84,14 +87,17 @@
             justify-content: center;
             align-items: center;
         }
-        header h1{
+
+        header h1 {
             font-size: 3rem;
         }
+
         header p {
             font-size: 1.5rem;
             color: #ffffffa1;
         }
-        .header-container-item{
+
+        .header-container-item {
             margin: 0;
             z-index: 1;
         }
@@ -106,10 +112,41 @@
             cursor: pointer;
             border-radius: 5px;
             text-decoration: none;
-       }
+        }
+
+        #cadBtn {
+            margin: 120px 0;
+        }
 
         .container {
             padding: 40px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search-form {
+            display: flex;
+            gap: 10px;
+            position: relative;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+        }
+
+        .search-form input {
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            padding-left: 30px;
         }
 
         .header-container {
@@ -132,9 +169,14 @@
 
         .card {
             width: 300px;
+            height: 320px;
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+            position: relative;
+            /* display: flex;
+            flex-direction: column; */
         }
 
         .card img {
@@ -148,12 +190,62 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+
         }
 
-        .empty-destinations > h4 {
+        .empty-destinations>h4 {
             margin: 0;
             font-weight: bold;
-            color: rgba(64,64,64,0.6);
+            color: rgba(64, 64, 64, 0.6);
+        }
+
+        .card-body {
+            padding: 15px;
+            padding-bottom: 60px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+        }
+
+        .card-body::after {
+            pointer-events: none;
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: linear-gradient(to top, white, transparent);
+            z-index: 1;
+        }
+
+        .desc {
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            /* position: fixed; */
+            position: relative;
+        }
+
+        .desc::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background: linear-gradient(to bottom, transparent, white);
+        }
+
+        .detalhes-btn {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            z-index: 2;
+            /* margin-top: auto;
+            align-self: flex-start; */
         }
 
         footer {
@@ -167,68 +259,139 @@
 
 <body>
 
-<div id="navbar">
-    <div class="navbar-container">
-        <h2>IFTur</h2>
-        <button >MEUS DESTINOS</button>
-    </div>
-</div>
-
-<header>
-    <div class="header-container">
-
-    <div class="overlay"></div>
-    <h1 class="header-container-item" th:text="${titulo}">Explore o mundo</h1>
-    <p class="header-container-item" th:text="${subtitulo}">Descubra destinos incríveis</p>
-    <a href="#destinations" class="btn header-container-item">
-        VER DESTINOS
-    </a>
-    </div>
-</header>
-
-<section id="destinations" class="container">
-    <h2>Destinos populares</h2>
-
-    <div class="cards">
-        <div class="card" th:each="destination : ${destinations}">
-            <img th:src="${destination.image}" alt="Destino">
-            <div>
-                <h3 th:text="${destination.name}">Nome</h3>
-                <p th:text="${destination.description}">Descrição</p>
-            </div>
-            <div>
-                <a class="btn" th:href="@{/detalhes/{id}(id=${destination.id})}">Ver detalhes</a>
-            </div>
+    <div id="navbar">
+        <div class="navbar-container">
+            <h2>IFTur</h2>
+            <button>MEUS DESTINOS</button>
         </div>
     </div>
 
-    <h2>Meus destinos</h2>
-    <div class="empty-destinations" th:if="${#lists.isEmpty(destinations)}">
-        <h4>Você não tem nenhum destino ainda...</h4>
-        <a class="btn" href="/cadastro">CADASTRAR</a>
-    </div>
-</section>
+    <header>
+        <div class="header-container">
 
-<footer>
-    <p>© 2026 IFTur - Todos os direitos reservados</p>
-</footer>
+            <div class="overlay"></div>
+            <h1 class="header-container-item" th:text="${titulo}">Explore o mundo</h1>
+            <p class="header-container-item" th:text="${subtitulo}">Descubra destinos incríveis</p>
+            <a href="#destinations" class="btn header-container-item">
+                VER DESTINOS
+            </a>
+        </div>
+    </header>
 
-<script>
-    let lastScroll = 0;
-    const navbar = document.getElementById("navbar");
+    <section id="destinations" class="container">
+        <div class="section-header">
+            <h2>Destinos populares</h2>
 
-    window.addEventListener("scroll", () => {
-        const currentScroll = window.pageYOffset;
+            <form method="get" action="/" class="search-form">
+                <img th:src="@{/images/loupe.png}" class="search-icon" alt="Buscar">
+                <input type="text" name="search" id="searchInput" placeholder="Buscar destino...">
+            </form>
+        </div>
 
-        if (currentScroll > 100) {
-            navbar.classList.add("show");
-        } else {
-            navbar.classList.remove("show");
-        }
+        <div class="cards" id="cardsContainer">
+            <div class="card" th:each="destination : ${destinations}">
+                <img th:src="${destination.image}" alt="Destino">
 
-        lastScroll = currentScroll;
-    });
-</script>
+                <div class="card-body">
+                    <h3 th:text="${destination.name}">Nome</h3>
+                    <p class="desc" th:text="${destination.description}">Descrição</p>
+
+                    <a class="btn" th:href="@{/detalhes/{id}(id=${destination.id})}">Ver detalhes</a>
+                </div>
+            </div>
+        </div>
+
+        <h2>Meus destinos</h2>
+
+        <div th:if="${#lists.isEmpty(destinations)}" class="empty-destinations">
+            <h4>Você não tem nenhum destino ainda...</h4>
+        </div>
+        <a class="btn" id="cadBtn" href="/cadastro">CADASTRAR</a>
+
+        <div class="cards" th:if="${!#lists.isEmpty(destinations)}">
+            <div class="card" th:each="destination : ${destinations}">
+                <img th:src="${destination.image}" alt="Destino">
+                <div class="card-body">
+                    <h3 th:text="${destination.name}">Nome</h3>
+                    <p class="desc" th:text="${destination.description}">Descrição</p>
+                    <a class="btn" th:href="@{/detalhes/{id}(id=${destination.id})}">Ver detalhes</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 IFTur - Todos os direitos reservados</p>
+    </footer>
+
+    <script>
+        let lastScroll = 0;
+        const navbar = document.getElementById("navbar");
+
+        window.addEventListener("scroll", () => {
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll > 100) {
+                navbar.classList.add("show");
+            } else {
+                navbar.classList.remove("show");
+            }
+
+            lastScroll = currentScroll;
+        });
+
+        //live search
+        const input = document.getElementById("searchInput");
+        const container = document.getElementById("cardsContainer");
+
+        let timeout = null;
+
+        input.addEventListener("input", () => {
+            clearTimeout(timeout);
+
+            // pequeno delay pra evitar muitas requisições
+            timeout = setTimeout(() => {
+                const termo = input.value.trim();
+
+                let url = "/api/destinos";
+
+                if (termo !== "") {
+                    url = `/api/destinos/buscar?nome=${encodeURIComponent(termo)}`;
+                }
+
+                fetch(url)
+                    .then(res => res.json())
+                    .then(data => {
+                        container.innerHTML = "";
+
+                        if (data.length === 0) {
+                            container.innerHTML = "<p>Nenhum destino encontrado</p>";
+                            return;
+                        }
+
+                        data.forEach(destino => {
+                            const card = `
+                        <div class="card">
+                            <img src="${destino.image}" alt="Destino">
+
+                            <div class="card-body">
+                                <h3>${destino.name}</h3>
+                                <p class="desc">${destino.description}</p>
+
+                                <a class="btn" href="/detalhes/${destino.id}">
+                                    Ver detalhes
+                                </a>
+                            </div>
+                        </div>
+                    `;
+
+                            container.innerHTML += card;
+                        });
+                    });
+            }, 300); // delay de 300ms
+        });
+    </script>
 
 </body>
+
 </html>

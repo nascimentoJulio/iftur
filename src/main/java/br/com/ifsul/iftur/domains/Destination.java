@@ -4,15 +4,14 @@ public class Destination {
     public String name;
     public String description;
     public String image;
-    private int id;
+    public String country;
+    private Integer id;
 
-    public Destination() {
-    }
-
-    public Destination(String name, String description, String image, int id) {
+    public Destination(String name, String description, String image, String country, Integer id) {
         this.name = name;
         this.description = description;
         this.image = image;
+        this.country = country;
         this.id = id;
     }
 
@@ -40,13 +39,19 @@ public class Destination {
         this.image = image;
     }
 
-    public int getId() {
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
-
-    
 }
