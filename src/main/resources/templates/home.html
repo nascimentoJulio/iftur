@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <title>IFTur - Explore o mundo</title>
-
     <style>
         body {
             margin: 0;
@@ -81,7 +80,6 @@
             background-position: center;
             height: 100vh;
             color: white;
-
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -258,63 +256,45 @@
 </head>
 
 <body>
-
     <div id="navbar">
         <div class="navbar-container">
-            <h2>IFTur</h2>
-            <button>MEUS DESTINOS</button>
+            <h2>IFTur</h2> <button>MEUS DESTINOS</button>
         </div>
     </div>
-
     <header>
         <div class="header-container">
-
             <div class="overlay"></div>
             <h1 class="header-container-item" th:text="${titulo}">Explore o mundo</h1>
-            <p class="header-container-item" th:text="${subtitulo}">Descubra destinos incríveis</p>
-            <a href="#destinations" class="btn header-container-item">
-                VER DESTINOS
-            </a>
+            <p class="header-container-item" th:text="${subtitulo}">Descubra destinos incríveis</p> <a
+                href="#destinations" class="btn header-container-item"> VER DESTINOS </a>
         </div>
     </header>
-
     <section id="destinations" class="container">
         <div class="section-header">
             <h2>Destinos populares</h2>
-
-            <form method="get" action="/" class="search-form">
-                <img th:src="@{/images/loupe.png}" class="search-icon" alt="Buscar">
-                <input type="text" name="search" id="searchInput" placeholder="Buscar destino...">
+            <form method="get" action="/" class="search-form"> <img th:src="@{/images/loupe.png}" class="search-icon"
+                    alt="Buscar"> <input type="text" name="search" id="searchInput" placeholder="Buscar destino...">
             </form>
         </div>
-
         <div class="cards" id="cardsContainer">
-            <div class="card" th:each="destination : ${destinations}">
-                <img th:src="${destination.image}" alt="Destino">
-
+            <div class="card" th:each="destination : ${destinations}"> <img th:src="${destination.image}" alt="Destino">
                 <div class="card-body">
                     <h3 th:text="${destination.name}">Nome</h3>
-                    <p class="desc" th:text="${destination.description}">Descrição</p>
-
-                    <a class="btn" th:href="@{/detalhes/{id}(id=${destination.id})}">Ver detalhes</a>
+                    <p class="desc" th:text="${destination.description}">Descrição</p> <a class="btn"
+                        th:href="@{/detalhes/{id}(id=${destination.id})}">Ver detalhes</a>
                 </div>
             </div>
         </div>
-
         <h2>Meus destinos</h2>
-
         <div th:if="${#lists.isEmpty(destinations)}" class="empty-destinations">
             <h4>Você não tem nenhum destino ainda...</h4>
-        </div>
-        <a class="btn" id="cadBtn" href="/cadastro">CADASTRAR</a>
-
+        </div> <a class="btn" id="cadBtn" href="/cadastro">CADASTRAR</a>
         <div class="cards" th:if="${!#lists.isEmpty(destinations)}">
-            <div class="card" th:each="destination : ${destinations}">
-                <img th:src="${destination.image}" alt="Destino">
+            <div class="card" th:each="destination : ${destinations}"> <img th:src="${destination.image}" alt="Destino">
                 <div class="card-body">
                     <h3 th:text="${destination.name}">Nome</h3>
-                    <p class="desc" th:text="${destination.description}">Descrição</p>
-                    <a class="btn" th:href="@{/detalhes/{id}(id=${destination.id})}">Ver detalhes</a>
+                    <p class="desc" th:text="${destination.description}">Descrição</p> <a class="btn"
+                        th:href="@{/detalhes/{id}(id=${destination.id})}">Ver detalhes</a>
                 </div>
             </div>
         </div>
