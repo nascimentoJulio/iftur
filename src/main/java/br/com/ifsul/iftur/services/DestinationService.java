@@ -42,6 +42,11 @@ public class DestinationService implements IDestinationService {
         return destinationRepository.findByName(nome);
     }
 
+    @Override
+    public List<Destination> getMyDestinations() {
+        return this.destinationRepository.getMyDestination();
+    }
+
     // Deletar
     public void deletar(int id) {
         destinationRepository.deleteById(id);

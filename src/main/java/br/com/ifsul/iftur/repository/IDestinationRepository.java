@@ -8,6 +8,7 @@ public interface IDestinationRepository {
     public List<Destination> getAll();
     public void save(Destination destino);
     public Destination findById(int id);
+    public List<Destination> getMyDestination();
     public List<Destination> findByName(String name);
     public void deleteById(int id);
 }

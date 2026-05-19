@@ -13,5 +13,7 @@ public interface IDestinationService {
 
     List<Destination> buscarPorNome(String nome);
 
+    List<Destination> getMyDestinations();
+
     void deletar(int id);
 }

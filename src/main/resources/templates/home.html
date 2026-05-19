@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <title>IFTur - Explore o mundo</title>
@@ -10,11 +11,13 @@
             font-family: "Segoe UI", Arial, sans-serif;
             box-sizing: border-box;
         }
-        h3,p {
+
+        h3,
+        p {
             margin: 0;
         }
 
-        .overlay{
+        .overlay {
             height: 100%;
             background: #00000085;
             width: 100%;
@@ -46,7 +49,7 @@
             z-index: 1000;
         }
 
-        .navbar-container{
+        .navbar-container {
             color: white;
             padding: 0 40px;
             display: flex;
@@ -84,14 +87,17 @@
             justify-content: center;
             align-items: center;
         }
-        header h1{
+
+        header h1 {
             font-size: 3rem;
         }
+
         header p {
             font-size: 1.5rem;
             color: #ffffffa1;
         }
-        .header-container-item{
+
+        .header-container-item {
             margin: 0;
             z-index: 1;
         }
@@ -106,7 +112,7 @@
             cursor: pointer;
             border-radius: 5px;
             text-decoration: none;
-       }
+        }
 
         .container {
             padding: 40px;
@@ -132,9 +138,13 @@
 
         .card {
             width: 300px;
-            border-radius: 10px;
+            border-radius: 4px;
             overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            padding: 32px 16px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
         }
 
         .card img {
@@ -150,10 +160,10 @@
             justify-content: center;
         }
 
-        .empty-destinations > h4 {
+        .empty-destinations>h4 {
             margin: 0;
             font-weight: bold;
-            color: rgba(64,64,64,0.6);
+            color: rgba(64, 64, 64, 0.6);
         }
 
         footer {
@@ -167,68 +177,89 @@
 
 <body>
 
-<div id="navbar">
-    <div class="navbar-container">
-        <h2>IFTur</h2>
-        <button >MEUS DESTINOS</button>
-    </div>
-</div>
-
-<header>
-    <div class="header-container">
-
-    <div class="overlay"></div>
-    <h1 class="header-container-item" th:text="${titulo}">Explore o mundo</h1>
-    <p class="header-container-item" th:text="${subtitulo}">Descubra destinos incríveis</p>
-    <a href="#destinations" class="btn header-container-item">
-        VER DESTINOS
-    </a>
-    </div>
-</header>
-
-<section id="destinations" class="container">
-    <h2>Destinos populares</h2>
-
-    <div class="cards">
-        <div class="card" th:each="destination : ${destinations}">
-            <img th:src="${destination.image}" alt="Destino">
-            <div>
-                <h3 th:text="${destination.name}">Nome</h3>
-                <p th:text="${destination.description}">Descrição</p>
-            </div>
-            <div>
-                <a class="btn" th:href="@{/detalhes/{id}(id=${destination.id})}">Ver detalhes</a>
-            </div>
+    <div id="navbar">
+        <div class="navbar-container">
+            <h2>IFTur</h2>
+            <button>MEUS DESTINOS</button>
         </div>
     </div>
 
-    <h2>Meus destinos</h2>
-    <div class="empty-destinations" th:if="${#lists.isEmpty(destinations)}">
-        <h4>Você não tem nenhum destino ainda...</h4>
-        <a class="btn" href="/cadastro">CADASTRAR</a>
-    </div>
-</section>
+    <header>
+        <div class="header-container">
 
-<footer>
-    <p>© 2026 IFTur - Todos os direitos reservados</p>
-</footer>
+            <div class="overlay"></div>
+            <h1 class="header-container-item" th:text="${titulo}">Explore o mundo</h1>
+            <p class="header-container-item" th:text="${subtitulo}">Descubra destinos incríveis</p>
+            <a href="#destinations" class="btn header-container-item">
+                VER DESTINOS
+            </a>
+        </div>
+    </header>
 
-<script>
-    let lastScroll = 0;
-    const navbar = document.getElementById("navbar");
+    <section id="destinations" class="container">
+        <h2>Destinos populares</h2>
 
-    window.addEventListener("scroll", () => {
-        const currentScroll = window.pageYOffset;
+        <div class="cards">
+            <div class="card" th:each="destination : ${destinations}">
+                <img th:src="${destination.image}" alt="Destino">
+                <div>
+                    <h3 th:text="${destination.name}">Nome</h3>
+                    <p th:text="${destination.description}">Descrição</p>
+                </div>
+                <div>
+                    <a class="btn" th:href="@{/detalhes/{id}(id=${destination.id})}">Ver detalhes</a>
+                </div>
+            </div>
+        </div>
 
-        if (currentScroll > 100) {
-            navbar.classList.add("show");
-        } else {
-            navbar.classList.remove("show");
-        }
+        <h2>Meus destinos</h2>
+        <div class="empty-destinations" th:if="${#lists.isEmpty(myDestinations)}">
+            <h4>Você não tem nenhum destino ainda...</h4>
+            <a class="btn" href="/cadastro">CADASTRAR</a>
+        </div>
 
-        lastScroll = currentScroll;
-    });
-</script>
+
+        <div class="cards" th:unless="${#lists.isEmpty(myDestinations)}">
+            <div class="card" th:each="destination : ${myDestinations}">
+                <img th:src="${destination.image}" alt="Destino">
+
+                <div>
+                    <h3 th:text="${destination.name}">Nome</h3>
+                    <p th:text="${destination.description}">Descrição</p>
+                </div>
+
+                <div>
+                    <a class="btn" th:href="@{/detalhes/{id}(id=${destination.id})}">
+                        Ver detalhes
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+
+    <footer>
+        <p>© 2026 IFTur - Todos os direitos reservados</p>
+    </footer>
+
+    <script>
+        let lastScroll = 0;
+        const navbar = document.getElementById("navbar");
+
+        window.addEventListener("scroll", () => {
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll > 100) {
+                navbar.classList.add("show");
+            } else {
+                navbar.classList.remove("show");
+            }
+
+            lastScroll = currentScroll;
+        });
+    </script>
 
 </body>
+
 </html>

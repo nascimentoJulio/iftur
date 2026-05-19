@@ -34,6 +34,7 @@ public class IFturController {
         } else {
             destinations = service.getAll();
         }
+        List<Destination> myDestinations = service.getMyDestinations();
         model.addAttribute("destinations", destinations);
         model.addAttribute("myDestinations", myDestinations);
 
@@ -71,22 +72,10 @@ public class IFturController {
         return "detalhes";
     }
 
-    // Deletar
     @GetMapping("/deletar/{id}")
     public String deletar(@PathVariable int id) {
-         destinationService.deleteById(id);
+         service.deletar(id);
         return "redirect:/";
     }
 
-    // Buscar
-    // @GetMapping("/buscar")
-    // public String buscar(@RequestParam String name, Model model) {
-    // List<Destination> filtrados = service.getAll()
-    // .stream()
-    // .filter(d -> d.getName().toLowerCase().contains(name.toLowerCase()))
-    // .toList();
-
-    // model.addAttribute("destinations", filtrados);
-    // return "home";
-    // }
 }
