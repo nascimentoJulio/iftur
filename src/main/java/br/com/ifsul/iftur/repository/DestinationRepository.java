@@ -1,10 +1,11 @@
 package br.com.ifsul.iftur.repository;
 
-import br.com.ifsul.iftur.domains.Destination;
-import org.springframework.stereotype.Repository;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.stereotype.Repository;
+
+import br.com.ifsul.iftur.domains.Destination;
 
 @Repository
 public class DestinationRepository implements IDestinationRepository {
@@ -26,17 +27,24 @@ public class DestinationRepository implements IDestinationRepository {
 
     @Override
     public void save(Destination destino) {
-        destino.setId(myDestinations.size() + 1L);
+        destino.setId(myDestinations.size() + 4L);
         myDestinations.add(destino);
     }
 
 
     @Override
     public Destination findById(int id) {
-        return destinations.stream()
+        Destination destination =  destinations.stream()
                 .filter(d -> d.getId() == id)
                 .findFirst()
                 .orElse(null);
+        if (destination == null) {
+            destination = myDestinations.stream()
+                .filter(d -> d.getId() == id)
+                .findFirst()
+                .orElse(null);
+        }
+        return destination;
     }
 
     @Override
