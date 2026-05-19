@@ -5,9 +5,9 @@ import br.com.ifsul.iftur.domains.Destination;
 import java.util.List;
 
 public interface IDestinationRepository {
-    List<Destination> getAll();
-    Destination getById(int id);
-    void save(int id);
-    List<Destination> getMyDestinations();
-    void deleteById(int id);
+    public List<Destination> getAll();
+    public void save(Destination destino);
+    public Destination findById(int id);
+    public List<Destination> findByName(String name);
+    public void deleteById(int id);
 }

@@ -1,13 +1,13 @@
 package br.com.ifsul.iftur.services;
 
 import br.com.ifsul.iftur.domains.Destination;
+import br.com.ifsul.iftur.repository.IDestinationRepository;
+
 // import br.com.ifsul.iftur.repository.IDestinationRepository;
 import br.com.ifsul.iftur.repository.IDestinationRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-
 
 @Service
 public class DestinationService implements IDestinationService {
@@ -18,29 +18,32 @@ public class DestinationService implements IDestinationService {
         this.destinationRepository = destinationRepository;
     }
 
+  
+
+    // Cadastrar
+    public Destination cadastrar(Destination destino) {
+        destinationRepository.save(destino);
+        return destino;
+    }
+
     @Override
     public List<Destination> getAll() {
         return destinationRepository.getAll();
     }
 
+    // Busca ID
+    public Destination buscarPorId(int id) {
+        return destinationRepository.findById(id);
+    }
+    
+    // BUsca por nome
     @Override
-    public void addDestination(int id) {
-        destinationRepository.save(id);
+    public List<Destination> buscarPorNome(String nome) {
+        return destinationRepository.findByName(nome);
     }
 
-    @Override
-    public Destination getById(int id) {
-        return destinationRepository.getById(id);
-    }
-
-    @Override
-    public List<Destination> getMyDestinations() {
-        return destinationRepository.getMyDestinations();
-    }
-
-    @Override
-    public void deleteById(int id) {
+    // Deletar
+    public void deletar(int id) {
         destinationRepository.deleteById(id);
     }
-
 }
