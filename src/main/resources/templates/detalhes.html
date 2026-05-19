@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${destination.name}">Detalhes</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        .hero {
+            height: 60vh;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .hero h1 {
+            position: relative;
+            font-size: 3rem;
+            z-index: 1;
+        }
+
+        .container {
+            padding: 40px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .info {
+            margin-bottom: 20px;
+        }
+
+        .price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #158229;
+        }
+
+        .btn {
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: #158229;
+            color: white;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .back {
+            display: inline-block;
+            margin-bottom: 20px;
+            text-decoration: none;
+            color: #158229;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="hero" th:style="'background-image: url(' + ${destination.image} + ')'">
+    <h1 th:text="${destination.name}">Nome</h1>
+</div>
+
+<div class="container">
+
+    <a href="/" class="back">← Voltar</a>
+
+    <div class="info">
+        <h2>Sobre o destino</h2>
+        <p th:text="${destination.description}">
+            Descrição completa do destino...
+        </p>
+    </div>
+
+    <div class="info">
+        <h3>Localização</h3>
+        <p th:text="${destination.location}">Localização</p>
+    </div>
+
+    <div class="info">
+        <h3>Duração</h3>
+        <p th:text="${destination.duration}">7 dias</p>
+    </div>
+
+
+    <button class="btn" id="btnReservar" th:attr="data-id=${destination.id}">ADCIONAR AOS MEUS DESTINOS
+    </button>
+
+    <script>
+        document.getElementById("btnReservar")
+            .addEventListener("click", (event) => {
+
+                const id = event.target.getAttribute("data-id");
+
+                fetch("/cadastrar/" + id, {
+                    method: "POST"
+                })
+                    .then(res => res.text())
+                    .then(msg => {
+                        alert("Adicionado com sucesso");
+                    });
+
+            });
+    </script>
+</div>
+
+</body>
+</html>
